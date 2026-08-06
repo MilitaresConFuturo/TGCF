@@ -36,6 +36,8 @@ test('builds a responsive web bundle with desktop and compact presentations', ()
   assert.equal(logo.readUInt32BE(16), 1149, 'the launch logo must use the official horizontal asset');
   assert.equal(logo.readUInt32BE(20), 356, 'the launch logo must use the official horizontal asset');
   assert.match(html, /src\/web-entry\.js/);
+  assert.doesNotMatch(html, /Tu referencia,\s*<em>prueba a prueba\.<\/em>/);
+  assert.doesNotMatch(html, /intro-logo/);
   assert.match(entry, /src\/ui\/\$\{mode\}\/template\.html/);
   assert.match(entry, /styles\/\$\{mode\}\.css/);
 });
