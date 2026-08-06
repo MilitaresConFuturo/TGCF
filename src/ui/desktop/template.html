@@ -1,0 +1,117 @@
+<header class="topbar">
+    <a class="brand" href="#inicio" aria-label="TGCF, inicio · Asociación Profesional Militares con Futuro">
+      <img class="brand-logo" src="assets/logo-mcf.png" alt="Logotipo de Militares con Futuro">
+      <span>TGCF</span>
+    </a>
+    <p>Evaluación periódica · Anexo II</p>
+  </header>
+
+  <main id="inicio" class="shell">
+    <section class="intro" aria-label="Preparación física">
+      <div>
+        <p class="eyebrow">Preparación física</p>
+        <p class="lede">Consulta los baremos de evaluación periódica y entiende exactamente qué marca necesitas en cada prueba.</p>
+      </div>
+      <div class="source-block">
+        <aside class="source-note">
+          <span class="source-dot" aria-hidden="true"></span>
+          <div><b>Normativa oficial · Orden DEF/15/2026</b><br><a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-1379" target="_blank" rel="noopener" aria-label="Consultar la Orden DEF/15/2026 en el BOE; se abre en una pestaña nueva">Consultar la Orden en el BOE <span aria-hidden="true">↗</span></a><small>Se abrirá la publicación oficial con los baremos completos.</small></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="setup" aria-labelledby="perfil-title">
+      <div class="section-heading">
+        <span class="step">01</span>
+        <div><p class="eyebrow">Perfil</p><h2 id="perfil-title">El baremo que te corresponde</h2></div>
+      </div>
+      <div class="profile-controls">
+        <label>Sexo
+          <select id="sex" aria-label="Sexo">
+            <option value="M">Hombre</option>
+            <option value="F">Mujer</option>
+          </select>
+        </label>
+        <label>Edad
+          <select id="age" aria-label="Edad" aria-describedby="age-band"></select>
+        </label>
+        <div class="band-readout"><span>Tramo aplicado</span><b id="age-band">26–30 años</b></div>
+      </div>
+    </section>
+
+    <section class="objective" aria-labelledby="objetivo-title">
+      <div class="section-heading compact">
+        <span class="step">02</span>
+        <div><p class="eyebrow">Consulta</p><h2 id="objetivo-title">¿Qué quieres ver?</h2></div>
+      </div>
+      <div class="mode-switch" role="group" aria-label="Modo de consulta">
+        <button class="mode active" type="button" data-mode="mine" aria-pressed="true">Mis marcas</button>
+        <button class="mode" type="button" data-mode="cut" aria-pressed="false">Corte general · APTO</button>
+      </div>
+      <p id="mode-copy" class="mode-copy">Introduce tus marcas. La aplicación compara cada una con el corte de 20 puntos.</p>
+    </section>
+
+    <section class="measurements" aria-labelledby="marcas-title">
+      <div class="section-heading">
+        <span class="step">03</span>
+        <div><p class="eyebrow">Marcas</p><h2 id="marcas-title">Registra tu resultado</h2></div>
+        <p class="measurement-note">El corte es la marca mínima para alcanzar 20 puntos.</p>
+      </div>
+
+      <div class="metrics" id="metrics">
+        <article class="metric" data-test="flex">
+          <div class="metric-number">01</div>
+          <div class="metric-main"><p class="metric-kicker">Fuerza del tren superior</p><h3>Flexo-extensiones</h3><p class="metric-description">Repeticiones correctas.</p></div>
+          <div class="entry-stack"><label class="entry"><span>Tu marca</span><input id="flex" type="number" min="0" max="73" inputmode="numeric" placeholder="—"><small>repeticiones · máximo oficial: <span id="flex-max">—</span></small></label><label class="reference-entry"><span>Seleccionar una marca</span><select id="flex-reference" aria-label="Seleccionar una marca oficial de flexiones"><option value="">—</option></select></label></div>
+          <div class="target"><span>Corte APTO</span><b id="flex-target">—</b></div>
+          <div class="result" id="flex-result" aria-live="polite">Sin marca</div>
+          <button class="baremo-button" data-baremo="flex" type="button">Baremo</button>
+        </article>
+
+        <article class="metric" data-test="plank">
+          <div class="metric-number">02</div>
+          <div class="metric-main"><p class="metric-kicker">Fuerza abdominal</p><h3>Plancha isométrica</h3><p class="metric-description">Introduce minutos y segundos por separado.</p></div>
+          <div class="entry-stack"><div class="entry duration-entry" role="group" aria-labelledby="plank-entry-label"><span id="plank-entry-label">Tu marca</span><div class="duration-fields"><label><span>Min.</span><input id="plank-minutes" type="number" min="0" max="5" inputmode="numeric" placeholder="1" aria-label="Minutos de plancha"></label><span class="duration-separator" aria-hidden="true">:</span><label><span>Seg.</span><input id="plank-seconds" type="number" min="0" max="59" inputmode="numeric" placeholder="30" aria-label="Segundos de plancha"></label></div><small>min : seg · máximo oficial: <span id="plank-max">—</span></small></div><label class="reference-entry"><span>Seleccionar una marca</span><select id="plank-reference" aria-label="Seleccionar una marca oficial de plancha"><option value="">—</option></select></label></div>
+          <div class="target"><span>Corte APTO</span><b id="plank-target">—</b></div>
+          <div class="result" id="plank-result" aria-live="polite">Sin marca</div>
+          <button class="baremo-button" data-baremo="plank" type="button">Baremo</button>
+        </article>
+
+        <article class="metric" data-test="run">
+          <div class="metric-number">03</div>
+          <div class="metric-main"><p class="metric-kicker">Resistencia</p><h3>Carrera · 2.000 m</h3><p class="metric-description">Introduce minutos y segundos por separado.</p></div>
+          <div class="entry-stack"><div class="entry duration-entry" role="group" aria-labelledby="run-entry-label"><span id="run-entry-label">Tu marca</span><div class="duration-fields"><label><span>Min.</span><input id="run-minutes" type="number" min="0" max="16" inputmode="numeric" placeholder="11" aria-label="Minutos de carrera"></label><span class="duration-separator" aria-hidden="true">:</span><label><span>Seg.</span><input id="run-seconds" type="number" min="0" max="59" inputmode="numeric" placeholder="30" aria-label="Segundos de carrera"></label></div><small>min : seg · máximo oficial: <span id="run-max">—</span></small></div><label class="reference-entry"><span>Seleccionar una marca</span><select id="run-reference" aria-label="Seleccionar una marca oficial de carrera"><option value="">—</option></select></label></div>
+          <div class="target"><span>Corte APTO</span><b id="run-target">—</b></div>
+          <div class="result" id="run-result" aria-live="polite">Sin marca</div>
+          <button class="baremo-button" data-baremo="run" type="button">Baremo</button>
+        </article>
+
+        <article class="metric" data-test="agility">
+          <div class="metric-number">04</div>
+          <div class="metric-main"><p class="metric-kicker">Agilidad y velocidad</p><h3>Circuito</h3><p class="metric-description">Se registra a la décima inferior.</p></div>
+          <div class="entry-stack"><label class="entry"><span>Tu marca</span><input id="agility" type="number" min="0" max="19" step="0.01" inputmode="decimal" placeholder="15,2"><small>segundos · máximo oficial: <span id="agility-max">—</span></small></label><label class="reference-entry"><span>Seleccionar una marca</span><select id="agility-reference" aria-label="Seleccionar una marca oficial de circuito"><option value="">—</option></select></label></div>
+          <div class="target"><span>Corte APTO</span><b id="agility-target">—</b></div>
+          <div class="result" id="agility-result" aria-live="polite">Sin marca</div>
+          <button class="baremo-button" data-baremo="agility" type="button">Baremo</button>
+        </article>
+      </div>
+      <p id="agility-note" class="agility-note" hidden>El circuito no se muestra para este tramo de edad en el Anexo II.</p>
+    </section>
+
+    <section class="report" aria-labelledby="informe-title">
+      <div class="report-status waiting" id="report-status"><span class="status-ring" aria-hidden="true"></span><span id="status-word">PENDIENTE</span></div>
+      <div class="report-copy"><p class="eyebrow">Informe de aptitud</p><h2 id="informe-title">Completa las marcas para obtener el resultado.</h2><p id="report-detail">La calificación de referencia exige al menos 20 puntos en cada prueba aplicable. La media no compensa una prueba inferior al corte.</p></div>
+      <dl class="report-numbers"><div><dt>Media</dt><dd id="average">—</dd></div><div><dt>Pruebas</dt><dd id="passed-count">—</dd></div></dl>
+
+    </section>
+
+    <section class="legal">
+      <p><b>Uso orientativo.</b> La aplicación calcula sobre las tablas del Anexo II. Las condiciones de una convocatoria, destino o unidad pueden establecer requisitos adicionales.</p>
+    </section>
+  </main>
+
+  <dialog id="baremo-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-head"><div><p class="eyebrow">Anexo II</p><h2 id="dialog-title">Baremo oficial</h2></div><button id="close-dialog" class="close-button" type="button" aria-label="Cerrar">×</button></div>
+    <p id="dialog-subtitle" class="dialog-subtitle"></p>
+    <div class="table-wrap"><table><thead><tr><th>Marca</th><th>Puntos</th></tr></thead><tbody id="baremo-body"></tbody></table></div>
+  </dialog>
