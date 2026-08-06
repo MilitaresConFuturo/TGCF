@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TGCF</string>
+    <string name="title_activity_main">TGCF</string>
+    <string name="package_name">es.militaresconfuturo.tgcf</string>
+    <string name="custom_url_scheme">es.militaresconfuturo.tgcf</string>
+</resources>
