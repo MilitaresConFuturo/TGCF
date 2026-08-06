@@ -1,5 +1,5 @@
 {
   "appId": "es.militaresconfuturo.tgcf",
   "appName": "TGCF",
-  "webDir": "dist"
+  "webDir": "dist/mobile"
 }

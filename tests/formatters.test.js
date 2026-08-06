@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { formatDuration, parseDuration, formatAgility } from '../src/formatters.js';
+import { formatDuration, parseDuration, formatAgility } from '../src/core/formatters.js';
 
 test('parses minute-second input and formats it consistently', () => {
   assert.equal(parseDuration('2:05'), 125);

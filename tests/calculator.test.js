@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import data from '../src/data/annex-ii.json' with { type: 'json' };
-import { ageBandIndex, calculateScore, minimumMarkForPoints, normalizeAgilityTenths, evaluate } from '../src/calculator.js';
+import data from '../src/core/data/annex-ii.json' with { type: 'json' };
+import { ageBandIndex, calculateScore, minimumMarkForPoints, normalizeAgilityTenths, evaluate } from '../src/core/calculator.js';
 
 test('uses the official age bands at each boundary', () => {
   assert.equal(ageBandIndex(17), 0);

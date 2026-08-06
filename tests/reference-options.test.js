@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import data from '../src/data/annex-ii.json' with { type: 'json' };
-import { officialMarkBounds, officialReferenceMarks } from '../src/reference-options.js';
+import data from '../src/core/data/annex-ii.json' with { type: 'json' };
+import { officialMarkBounds, officialReferenceMarks } from '../src/core/reference-options.js';
 
 test('lists each official mark once in ascending order for a picker', () => {
   assert.deepEqual(officialReferenceMarks(data.tests.flex).slice(0, 3), [0, 1, 2]);

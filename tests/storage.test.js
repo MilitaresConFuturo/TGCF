@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { STORAGE_KEY, loadState, saveState } from '../src/storage.js';
+import { STORAGE_KEY, loadState, saveState } from '../src/core/storage.js';
 
 function memoryStorage() {
   const values = new Map();

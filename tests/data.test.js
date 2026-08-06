@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import data from '../src/data/annex-ii.json' with { type: 'json' };
+import data from '../src/core/data/annex-ii.json' with { type: 'json' };
 
 test('Anexo II has the expected official table boundaries', () => {
   const { flex, plank, run, agility } = data.tests;

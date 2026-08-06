@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { durationFromParts, durationToParts } from '../src/time-inputs.js';
+import { durationFromParts, durationToParts } from '../src/core/time-inputs.js';
 
 test('builds a duration from separate minute and second fields', () => {
   assert.equal(durationFromParts('1', '30'), 90);

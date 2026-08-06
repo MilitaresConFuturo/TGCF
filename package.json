@@ -3,7 +3,8 @@
   "scripts": {
     "test": "node --test",
     "build:web": "node scripts/build-web.js",
-    "mobile:sync": "npm run build:web && npx cap sync",
+    "build:mobile": "node scripts/build-mobile.js",
+    "mobile:sync": "npm run build:mobile && npx cap sync",
     "mobile:open:android": "npx cap open android",
     "mobile:open:ios": "npx cap open ios"
   },
