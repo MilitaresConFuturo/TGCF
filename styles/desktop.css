@@ -26,7 +26,7 @@ button { cursor: pointer; }
 .source-block { align-self: end; }
 
 .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
-.intro { min-height: 296px; display: grid; grid-template-columns: minmax(0, 1fr) 270px; align-items: end; gap: 40px; padding: 65px 0 50px; border-bottom: 1px solid var(--line); }
+.intro { min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 270px; align-items: end; gap: 40px; padding: 54px 0 46px; border-bottom: 1px solid var(--line); }
 .eyebrow { margin: 0 0 8px; font: 10px/1 var(--mono); letter-spacing: .13em; text-transform: uppercase; color: var(--coral); }
 h1, h2, h3, p { text-wrap: pretty; }
 h1 { margin: 0; max-width: 760px; font: 700 clamp(42px, 7vw, 78px)/.94 var(--serif); letter-spacing: -.045em; }
