@@ -26,12 +26,12 @@ button { cursor: pointer; }
 .source-block { align-self: end; }
 
 .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
-.intro { min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 270px; align-items: end; gap: 40px; padding: 54px 0 46px; border-bottom: 1px solid var(--line); }
+.intro { min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 270px; align-items: start; gap: 40px; padding: 26px 0 24px; border-bottom: 1px solid var(--line); }
 .eyebrow { margin: 0 0 8px; font: 10px/1 var(--mono); letter-spacing: .13em; text-transform: uppercase; color: var(--coral); }
 h1, h2, h3, p { text-wrap: pretty; }
 h1 { margin: 0; max-width: 760px; font: 700 clamp(42px, 7vw, 78px)/.94 var(--serif); letter-spacing: -.045em; }
 h1 em { color: var(--coral); font-style: italic; }
-.lede { max-width: 590px; margin: 22px 0 0; color: var(--ink-soft); font-size: 16px; line-height: 1.6; }
+.lede { max-width: 590px; margin: 14px 0 0; color: var(--ink-soft); font-size: 16px; line-height: 1.6; }
 .source-note { display: flex; gap: 10px; border-top: 2px solid var(--ink); padding-top: 12px; font-size: 12px; line-height: 1.55; color: var(--ink-soft); }
 .source-note b { color: var(--ink); }.source-note a { display: inline-block; margin-top: 2px; color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: var(--coral); text-decoration-thickness: 1.5px; text-underline-offset: 4px; transition: color .15s, text-decoration-color .15s; }.source-note a:hover, .source-note a:focus-visible { color: var(--coral); text-decoration-color: currentColor; }.source-note small { display: block; margin-top: 7px; font-size: 10px; line-height: 1.45; }.source-dot { width: 8px; height: 8px; margin-top: 5px; border-radius: 50%; background: var(--coral); flex: none; }
 .setup, .objective, .measurements { border-bottom: 1px solid var(--line); padding: 38px 0; }
