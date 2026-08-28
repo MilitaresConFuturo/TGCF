@@ -1,6 +1,7 @@
 :root {
   --ink: #193540;
   --ink-soft: #52656b;
+  --text: #1e1e1e;
   --paper: #ffffff;
   --surface: #ffffff;
   --line: #dce1e3;
@@ -14,7 +15,7 @@
   --warn: #9a6500;
   --coral: var(--red);
   --coral-pale: var(--red-pale);
-  --blue-pale: var(--teal-pale);
+  --blue-pale: var(--alt);
   --mono: "Heebo", Arial, sans-serif;
   --sans: "Poppins", Arial, sans-serif;
   --serif: "Heebo", Arial, sans-serif;
@@ -120,4 +121,24 @@ button, .mode, .baremo-button, .outline-button, .text-button { font-family: var(
   .report-status { flex: 1 0 100%; grid-template-columns: 36px auto; justify-items: start; align-items: center; gap: 10px; }.status-ring { width: 34px; height: 34px; }.status-ring::after { inset: 5px; }
   .report-status span:last-child { font-size: 9px; }.report-copy { flex: 1 1 100%; min-width: 0; }.report-copy .eyebrow, .report-copy p:last-child { display: none; }
   .report-copy h2 { overflow-wrap: anywhere; font-size: 18px; line-height: 1.08; }.report-numbers { flex: 1 0 100%; grid-column: auto; max-width: 100%; margin-left: 0; gap: 10px; }.report-numbers dd { font-size: 17px; }
+}
+
+/* Corporate identity compliance. */
+body { color: var(--text); font-weight: 400; }
+h1, h2, h3, .brand, .section-heading h2, .metric h3, .dialog-head h2 { color: var(--ink); }
+input:focus, select:focus { border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-pale); }
+.profile-summary, .band-readout, .mode-switch { background: var(--alt); }
+.mode-switch { gap: 4px; border-radius: 5px; }
+.mode { border: 2px solid var(--teal); border-radius: 5px; background: transparent; color: var(--teal); font: 600 12px/1 var(--mono); text-transform: uppercase; }
+.mode:hover, .mode:focus-visible, .mode.active:hover, .mode.active:focus-visible { border-color: var(--ink); background: var(--ink); color: #fff; }
+.mode.active { border-color: var(--teal); background: var(--teal); color: #fff; box-shadow: none; }
+.baremo-button, .profile-edit, .outline-button { min-height: 34px; border: 2px solid var(--teal); border-radius: 5px; padding: 0 10px; background: transparent; color: var(--teal); font: 600 10px/1 var(--mono); text-transform: uppercase; text-decoration: none; }
+.baremo-button:hover, .baremo-button:focus-visible, .profile-edit:hover, .profile-edit:focus-visible, .outline-button:hover, .outline-button:focus-visible { border-color: var(--ink); background: var(--ink); color: #fff; }
+.close-button { border: 2px solid var(--teal); border-radius: 5px; background: transparent; color: var(--teal); }
+.close-button:hover, .close-button:focus-visible { border-color: var(--ink); background: var(--ink); color: #fff; }
+.report { border-top: 4px solid var(--yellow); }
+
+@media (max-width: 570px) {
+  .mode { font-size: 9px; }
+  .baremo-button, .profile-edit { min-height: 30px; padding: 0 7px; font-size: 8px; }
 }
