@@ -18,16 +18,18 @@ const dist = path.join(root, 'dist');
     'src/app.js',
     'src/calculator.js',
     'src/data/annex-ii.json',
-    'assets/logo-mcf.png',
+    'assets/logo-mcf-oficial-2026.png',
   ]) {
     assert.equal(existsSync(path.join(dist, relativePath)), true, relativePath);
   }
 
-  const logo = readFileSync(path.join(dist, 'assets', 'logo-mcf.png'));
+  const logo = readFileSync(path.join(dist, 'assets', 'logo-mcf-oficial-2026.png'));
   assert.equal(logo.readUInt32BE(16), 1149, 'the deployed logo must use the official horizontal asset');
   assert.equal(logo.readUInt32BE(20), 356, 'the deployed logo must use the official horizontal asset');
 
   const html = readFileSync(path.join(dist, 'index.html'), 'utf8');
+  assert.match(html, /src="assets\/logo-mcf-oficial-2026\.png"/);
+  assert.doesNotMatch(html, /src="assets\/logo-mcf\.png"/);
   assert.match(html, /src\/app\.js\?v=10/);
   assert.match(html, /<title>TGCF<\/title>/);
   assert.match(html, /id="profile-summary"/);
