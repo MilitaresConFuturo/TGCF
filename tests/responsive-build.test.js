@@ -25,7 +25,7 @@ test('builds a responsive web bundle with desktop and compact presentations', ()
     'src/ui/compact/app.js',
     'src/core/calculator.js',
     'src/core/data/annex-ii.json',
-    'assets/logo-mcf.png',
+    'assets/logo-mcf-oficial-2026.png',
   ]) {
     assert.equal(existsSync(path.join(dist, relativePath)), true, relativePath);
   }
@@ -36,12 +36,14 @@ test('builds a responsive web bundle with desktop and compact presentations', ()
   const compactTemplate = readFileSync(path.join(dist, 'src', 'ui', 'compact', 'template.html'), 'utf8');
   const desktopCss = readFileSync(path.join(dist, 'styles', 'desktop.css'), 'utf8').toLowerCase();
   const compactCss = readFileSync(path.join(dist, 'styles', 'compact.css'), 'utf8').toLowerCase();
-  const logo = readFileSync(path.join(dist, 'assets', 'logo-mcf.png'));
+  const logo = readFileSync(path.join(dist, 'assets', 'logo-mcf-oficial-2026.png'));
   assert.equal(logo.readUInt32BE(16), 1149, 'the launch logo must use the official horizontal asset');
   assert.equal(logo.readUInt32BE(20), 356, 'the launch logo must use the official horizontal asset');
   assert.match(html, /family=Heebo:wght@400;600;700&family=Poppins:wght@400;600/);
   assert.match(html, /theme-color" content="#193540"/);
   for (const template of [desktopTemplate, compactTemplate]) {
+    assert.match(template, /src="assets\/logo-mcf-oficial-2026\.png"/);
+    assert.doesNotMatch(template, /src="assets\/logo-mcf\.png"/);
     assert.match(template, /class="back-to-site" href="https:\/\/www\.militaresconfuturo\.es">Volver a la web<\/a>/);
   }
   for (const css of [desktopCss, compactCss]) {
@@ -72,7 +74,7 @@ test('builds the compact presentation as the Capacitor mobile bundle', () => {
     'src/ui/compact/app.js',
     'src/core/calculator.js',
     'src/core/data/annex-ii.json',
-    'assets/logo-mcf.png',
+    'assets/logo-mcf-oficial-2026.png',
   ]) {
     assert.equal(existsSync(path.join(dist, relativePath)), true, relativePath);
   }

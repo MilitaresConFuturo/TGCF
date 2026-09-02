@@ -18,12 +18,14 @@ test('builds the compact mobile web bundle for Capacitor', () => {
     'src/ui/compact/app.js',
     'src/core/calculator.js',
     'src/core/data/annex-ii.json',
-    'assets/logo-mcf.png',
+    'assets/logo-mcf-oficial-2026.png',
   ]) {
     assert.equal(existsSync(path.join(dist, relativePath)), true, relativePath);
   }
 
   const html = readFileSync(path.join(dist, 'index.html'), 'utf8');
+  assert.match(html, /src="assets\/logo-mcf-oficial-2026\.png"/);
+  assert.doesNotMatch(html, /src="assets\/logo-mcf\.png"/);
   assert.match(html, /src\/ui\/compact\/app\.js/);
   assert.match(html, /<title>TGCF<\/title>/);
   assert.match(html, /id="profile-summary"/);
