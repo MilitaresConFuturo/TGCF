@@ -23,6 +23,10 @@ const dist = path.join(root, 'dist');
     assert.equal(existsSync(path.join(dist, relativePath)), true, relativePath);
   }
 
+  const logo = readFileSync(path.join(dist, 'assets', 'logo-mcf.png'));
+  assert.equal(logo.readUInt32BE(16), 1149, 'the deployed logo must use the official horizontal asset');
+  assert.equal(logo.readUInt32BE(20), 356, 'the deployed logo must use the official horizontal asset');
+
   const html = readFileSync(path.join(dist, 'index.html'), 'utf8');
   assert.match(html, /src\/app\.js\?v=10/);
   assert.match(html, /<title>TGCF<\/title>/);
