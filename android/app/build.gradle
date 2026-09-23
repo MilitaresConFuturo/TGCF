@@ -1,10 +1,8 @@
 apply plugin: 'com.android.application'
 
-def keystorePropertiesFile = rootProject.file('keystore.properties')
-def keystoreProperties = new Properties()
-if (keystorePropertiesFile.exists()) {
-    keystorePropertiesFile.withInputStream { keystoreProperties.load(it) }
-}
+// Publication signing lives outside Git and is injected by scripts/tgcf-signing.py.
+def signingFile = System.getenv('TGCF_SIGNING_FILE')
+def signingPassword = System.getenv('TGCF_SIGNING_PASSWORD')
 
 android {
     namespace = "es.militaresconfuturo.tgcf"
@@ -24,11 +22,11 @@ android {
     }
     signingConfigs {
         release {
-            if (keystorePropertiesFile.exists()) {
-                storeFile rootProject.file(keystoreProperties['storeFile'])
-                storePassword keystoreProperties['storePassword']
-                keyAlias keystoreProperties['keyAlias']
-                keyPassword keystoreProperties['keyPassword']
+            if (signingFile && signingPassword) {
+                storeFile file(signingFile)
+                storePassword signingPassword
+                keyAlias 'tgcf'
+                keyPassword signingPassword
             }
         }
     }
@@ -42,7 +40,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            if (keystorePropertiesFile.exists()) {
+            if (signingFile && signingPassword) {
                 signingConfig signingConfigs.release
             }
         }
@@ -51,8 +49,8 @@ android {
 
 afterEvaluate {
     def releaseTaskRequested = gradle.startParameter.taskNames.any { it.toLowerCase().contains('release') }
-    if (releaseTaskRequested && !keystorePropertiesFile.exists()) {
-        throw new GradleException('Falta android/keystore.properties. Copia keystore.properties.example y guarda la clave fuera del repositorio.')
+    if (releaseTaskRequested && (!signingFile || !signingPassword || !file(signingFile).exists())) {
+        throw new GradleException('Falta la clave de publicación. Ejecuta python scripts/tgcf-signing.py build desde Windows.')
     }
 }
 
