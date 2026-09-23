@@ -12,6 +12,7 @@ from ctypes import wintypes
 import hashlib
 import os
 from pathlib import Path
+import re
 import secrets
 import shutil
 import subprocess
@@ -25,6 +26,8 @@ VAULT = Path(os.environ['LOCALAPPDATA']) / 'TGCF-Signing'
 KEY = VAULT / 'tgcf-release.p12'
 BLOB = VAULT / 'tgcf-password.dpapi'
 ALIAS = 'tgcf'
+EXPECTED_SIGNER_SHA256 = 'e5663f7ef8b731cbf744fe5eba3bf9265811857d89fd0ce9194ef7e4a2cc1fa8'
+PACKAGE_ID = 'es.militaresconfuturo.tgcf'
 
 class DATA_BLOB(ctypes.Structure):
     _fields_ = [('cbData', wintypes.DWORD), ('pbData', ctypes.POINTER(ctypes.c_byte))]
@@ -96,6 +99,26 @@ def status():
     print('SHA-256 del archivo de clave:', hashlib.sha256(KEY.read_bytes()).hexdigest())
     print('DPAPI protege la contraseña para el usuario Windows actual; no viaja a otro PC por sí solo.')
 
+def verify_artifact(sdk):
+    tools = sdk / 'build-tools' / '35.0.0'
+    apk = ROOT / 'android' / 'app' / 'build' / 'outputs' / 'apk' / 'release' / 'app-release.apk'
+    signed = subprocess.run([str(tools / 'apksigner.bat'), 'verify', '--print-certs', str(apk)],
+                            check=True, capture_output=True, text=True, errors='replace').stdout
+    m = re.search(r'Signer #1 certificate SHA-256 digest: ([0-9a-f]+)', signed)
+    if not m or m.group(1).lower() != EXPECTED_SIGNER_SHA256:
+        raise SystemExit('Firma inesperada: NO distribuir este APK.')
+    badging = subprocess.run([str(tools / 'aapt.exe'), 'dump', 'badging', str(apk)],
+                             check=True, capture_output=True, text=True, errors='replace').stdout
+    pkg = next((line for line in badging.splitlines() if line.startswith('package:')), '')
+    version = re.search(r"versionCode='(\d+)'", pkg)
+    if f"name='{PACKAGE_ID}'" not in pkg or not version or int(version.group(1)) < 2:
+        raise SystemExit('Identificador o versionCode inesperados: NO distribuir este APK.')
+    if 'application-debuggable' in badging:
+        raise SystemExit('APK depurable inesperado: NO distribuir.')
+    print('APK release VERIFICADA:', apk)
+    print('Identificador/versión:', pkg)
+    print('Certificado SHA-256:', m.group(1))
+
 def build():
     pw = password()
     if not KEY.exists(): raise SystemExit('Falta el almacén de firma.')
@@ -115,6 +138,7 @@ def build():
     subprocess.run(['npm.cmd', 'run', 'mobile:sync'], cwd=ROOT, env=env, check=True)
     subprocess.run([str(ROOT / 'android' / 'gradlew.bat'), 'assembleRelease', '--no-daemon'],
                    cwd=ROOT / 'android', env=env, check=True)
+    verify_artifact(sdk)
 
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('action', choices=['init','status','build','recovery'])
