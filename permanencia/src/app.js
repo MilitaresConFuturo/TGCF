@@ -66,13 +66,15 @@ function restoreMarks(marks) {
 }
 
 function persistState() {
-  saveState(storage, { sex: sex(), marks: marksState() });
+  saveState(storage, { sex: sex(), apl: $('#apl-toggle').checked, marks: marksState() });
 }
 
 function restoreSavedState() {
   const state = loadState(storage);
   if (!state) return;
   $('#sex').value = state.sex;
+  $('#apl-toggle').checked = Boolean(state.apl);
+  $('#apl-help').hidden = !state.apl;
   restoreMarks(state.marks);
 }
 
@@ -90,10 +92,12 @@ function updateMetric(key) {
   const article = document.querySelector(`[data-test="${key}"]`);
   const resultElement = $(`#${key}-result`);
   const score = calculateScore(tests[key], sex(), value);
+  const aplMode = $('#apl-toggle').checked;
 
   if (value === null) {
     resultElement.className = 'result';
-    resultElement.textContent = !control.hasAny() ? 'Sin marca'
+    resultElement.textContent = !control.hasAny()
+      ? (aplMode ? 'No realizada (APL)' : 'Sin marca')
       : control.isIncomplete?.() ? 'Completa min. y seg.'
         : 'Marca no válida';
     return null;
@@ -106,14 +110,17 @@ function updateMetric(key) {
 
 function updateReport(scores) {
   const status = $('#report-status');
+  const aplMode = $('#apl-toggle').checked;
   const values = Object.values(scores);
   const hasAny = values.some(score => score !== null);
-  const { sum, computed, complete } = totalFromScores(values.map(score => score ?? NaN));
+  const { sum, computed, complete } = totalFromScores(values.map(score => score ?? NaN), { aplMode });
 
   if (!complete) {
     status.className = 'report-status waiting';
     $('#status-word').textContent = 'PENDIENTE';
-    $('#informe-title').textContent = hasAny ? 'Completa las 4 pruebas para ver el total.' : 'Introduce tus 4 marcas para calcular la puntuación.';
+    $('#informe-title').textContent = hasAny
+      ? (aplMode ? 'Completa al menos una prueba para ver el total.' : 'Completa las 4 pruebas para ver el total.')
+      : 'Introduce tus marcas para calcular la puntuación.';
     $('#sum-raw').textContent = '—';
     $('#total-computed').textContent = '—';
     return;
@@ -122,8 +129,10 @@ function updateReport(scores) {
   $('#status-word').textContent = `${computed}/15`;
   $('#informe-title').textContent = sum > 15
     ? 'Suma bruta superior a 15: se aplica el tope oficial.'
-    : 'Puntuación física para el concurso de permanencia.';
-  $('#sum-raw').textContent = `${sum}/20`;
+    : aplMode
+      ? 'Puntuación APL: solo se suman las pruebas realizadas.'
+      : 'Puntuación física para el concurso de permanencia.';
+  $('#sum-raw').textContent = aplMode ? `${sum}` : `${sum}/20`;
   $('#total-computed').textContent = `${computed}/15`;
 }
 
@@ -138,6 +147,11 @@ Object.entries(controls).forEach(([, control]) => control.fields.forEach(field =
 })));
 
 $('#sex').addEventListener('change', () => { persistState(); render(); });
+$('#apl-toggle').addEventListener('change', () => {
+  $('#apl-help').hidden = !$('#apl-toggle').checked;
+  persistState();
+  render();
+});
 
 document.querySelectorAll('.baremo-button').forEach(button => button.addEventListener('click', () => openBaremo(button.dataset.baremo)));
 $('#close-dialog').addEventListener('click', () => $('#baremo-dialog').close());

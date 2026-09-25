@@ -47,3 +47,21 @@ test('marks incomplete when any of the four tests is missing', () => {
   const result = totalFromScores([5, 4, NaN, 3]);
   assert.equal(result.complete, false);
 });
+
+test('in APL mode, only the provided tests are summed, missing ones do not block the total', () => {
+  const result = totalFromScores([5, 4, NaN, NaN], { aplMode: true });
+  assert.equal(result.sum, 9);
+  assert.equal(result.computed, 9);
+  assert.equal(result.complete, true);
+});
+
+test('in APL mode, an all-missing set is still incomplete', () => {
+  const result = totalFromScores([NaN, NaN, NaN, NaN], { aplMode: true });
+  assert.equal(result.complete, false);
+});
+
+test('APL mode caps at 15 the same way as the normal mode', () => {
+  const result = totalFromScores([5, 5, 5, NaN], { aplMode: true });
+  assert.equal(result.sum, 15);
+  assert.equal(result.computed, 15);
+});

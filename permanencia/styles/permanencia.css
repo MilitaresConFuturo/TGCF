@@ -18,3 +18,15 @@
   .topbar-actions { gap: 6px; }
   .tool-tab { padding: 0 8px; font-size: 9px; }
 }
+
+.normativa-group { display: flex; gap: 10px; }
+.normativa-group .normativa-link strong { white-space: nowrap; }
+
+.apl-toggle-label { display: flex !important; flex-direction: row !important; align-items: center; gap: 8px; grid-template-columns: none !important; text-transform: none !important; letter-spacing: 0 !important; font-weight: 500 !important; }
+.apl-toggle-label input[type="checkbox"] { width: auto; min-height: 0; flex: none; }
+.apl-help { margin: 12px 0 0; padding: 12px 14px; background: var(--alt); color: var(--ink-soft); font-size: 12px; line-height: 1.5; border-left: 3px solid var(--yellow); }
+
+@media (max-width: 570px) {
+  .normativa-group { flex-direction: column; gap: 2px; }
+}
+

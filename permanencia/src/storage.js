@@ -3,6 +3,7 @@ export const STORAGE_KEY = 'permanencia-2026-evaluacion-fisica-v1';
 function normalizeState(value) {
   if (!value || typeof value !== 'object') return null;
   const sex = value.sex === 'F' ? 'F' : value.sex === 'M' ? 'M' : null;
+  const apl = value.apl === true;
   const marks = value.marks;
   if (!sex || !marks || typeof marks !== 'object') return null;
   const text = field => typeof field === 'string' ? field : '';
@@ -15,6 +16,7 @@ function normalizeState(value) {
   const run = marks.run && typeof marks.run === 'object' ? marks.run : {};
   return {
     sex,
+    apl,
     marks: {
       flex: numericMark(marks.flex),
       plank: duration(plank),

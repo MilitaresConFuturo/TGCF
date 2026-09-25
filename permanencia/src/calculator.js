@@ -18,7 +18,12 @@ export function rangeLabelFor(test, sex, value) {
   return row ? row.rangeLabel : null;
 }
 
-export function totalFromScores(scores) {
+export function totalFromScores(scores, { aplMode = false } = {}) {
+  if (aplMode) {
+    const provided = scores.filter(score => Number.isFinite(score));
+    const sum = provided.reduce((total, score) => total + score, 0);
+    return { sum, computed: Math.min(sum, 15), complete: provided.length > 0 };
+  }
   const validScores = scores.filter(score => Number.isFinite(score));
   const sum = validScores.reduce((total, score) => total + score, 0);
   return { sum, computed: Math.min(sum, 15), complete: validScores.length === scores.length && scores.length > 0 };

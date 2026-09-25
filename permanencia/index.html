@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#193540">
-  <title>Permanencia 2026</title>
+  <title>Permanencia</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -13,14 +13,17 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#inicio" aria-label="Permanencia 2026, inicio"><img class="brand-logo" src="../assets/logo-mcf-oficial-2026.png" alt="Logotipo de Militares con Futuro"><span>Permanencia 2026</span></a>
+    <a class="brand" href="#inicio" aria-label="Permanencia, inicio"><img class="brand-logo" src="../assets/logo-mcf-oficial-2026.png" alt="Logotipo de Militares con Futuro"><span>Permanencia</span></a>
     <nav class="topbar-actions" aria-label="Enlaces de la aplicación">
       <div class="tool-switch" role="group" aria-label="Herramienta">
         <a class="tool-tab" href="../">TGCF</a>
         <a class="tool-tab active" href="./" aria-current="page">Permanencia</a>
       </div>
       <a class="back-to-site" href="https://www.militaresconfuturo.es">Volver a la web</a>
-      <a class="normativa-link" href="https://www.boe.es/boe/dias/2026/01/21/pdfs/BOE-A-2026-1379.pdf" target="_blank" rel="noopener noreferrer" aria-label="Abrir normativa oficial: Orden DEF/15/2026, Anexo III apartado quinto"><span>Normativa oficial</span><strong>Anexo III · BOE ↗</strong></a>
+      <div class="normativa-group">
+        <a class="normativa-link" href="https://www.boe.es/boe/dias/2026/01/21/pdfs/BOE-A-2026-1379.pdf" target="_blank" rel="noopener noreferrer" aria-label="Abrir Orden DEF/15/2026, Anexo III apartado quinto"><span>Normativa</span><strong>Orden DEF/15/2026 ↗</strong></a>
+        <a class="normativa-link" href="#fuentes" aria-label="Ver las fuentes completas del cálculo, más abajo en esta página"><span>Convocatoria</span><strong>BOD 116 · ver abajo ↓</strong></a>
+      </div>
     </nav>
   </header>
 
@@ -33,7 +36,12 @@
             <option value="F">Mujer</option>
           </select>
         </label>
+        <label class="apl-toggle-label">
+          <input id="apl-toggle" type="checkbox">
+          <span>Certificado APL (apto con limitaciones)</span>
+        </label>
       </div>
+      <p id="apl-help" class="apl-help" hidden>Marca solo las pruebas que tu certificado médico te permite realizar. Las que dejes vacías no puntúan ni penalizan: la convocatoria establece que a este personal se le suman únicamente los ejercicios que puede efectuar (BOD 116, base novena 1.3).</p>
     </section>
 
     <section class="measurements" aria-label="Pruebas físicas de permanencia">
@@ -78,9 +86,12 @@
       <dl class="report-numbers"><div><dt>Suma bruta</dt><dd id="sum-raw">—</dd></div><div><dt>Total computable</dt><dd id="total-computed">—</dd></div></dl>
     </section>
 
-    <section class="legal permanencia-notice">
-      <p><b>Sobre el total mostrado.</b> La Orden DEF/15/2026 (anexo III, apartado quinto) da 0–5 puntos por cada una de las 4 pruebas — hasta 20 en bruto — pero fija «Máximo 15 puntos». La convocatoria de permanencia (Resolución 452/08724/26, base común novena, apartado 1.3) confirma que la puntuación final es la suma de los ejercicios con 15 como máximo obtenible. El total mostrado aquí aplica <code>MÍN(suma, 15)</code>, la única lectura compatible con que el concurso completo sume exactamente 100 puntos (40 méritos + 20 académicos + 25 IPEC + 15 psicofísica). Consulta siempre la normativa oficial vigente antes de una convocatoria real.</p>
-      <p class="sources"><a href="https://www.boe.es/boe/dias/2026/01/21/pdfs/BOE-A-2026-1379.pdf" target="_blank" rel="noopener noreferrer">Orden DEF/15/2026 · BOE ↗</a> · <a href="https://www.defensa.gob.es/documents/1982695/2413197/CONVOCATORIA%2BPERMANENCIA.pdf/9a8abad9-9fb6-71d9-724e-325e6ac9f04c?t=1781766604253" target="_blank" rel="noopener noreferrer">Convocatoria BOD 116 ↗</a></p>
+    <section id="fuentes" class="legal permanencia-notice">
+      <details class="source-note">
+        <summary><b>Sobre el total mostrado</b> — por qué el máximo son 15 puntos, no 20</summary>
+        <p>La Orden DEF/15/2026 (anexo III, apartado quinto) da 0–5 puntos por cada una de las 4 pruebas — hasta 20 en bruto — pero fija «Máximo 15 puntos». La convocatoria de permanencia (Resolución 452/08724/26, base común novena, apartado 1.3) confirma que la puntuación final es la suma de los ejercicios con 15 como máximo obtenible. El total mostrado aquí aplica <code>MÍN(suma, 15)</code>, la única lectura compatible con que el concurso completo sume exactamente 100 puntos (40 méritos + 20 académicos + 25 IPEC + 15 psicofísica). Consulta siempre la normativa oficial vigente antes de una convocatoria real.</p>
+        <p class="sources"><a href="https://www.boe.es/boe/dias/2026/01/21/pdfs/BOE-A-2026-1379.pdf" target="_blank" rel="noopener noreferrer">Orden DEF/15/2026 · BOE ↗</a> · <a href="https://www.defensa.gob.es/documents/1982695/2413197/CONVOCATORIA%2BPERMANENCIA.pdf/9a8abad9-9fb6-71d9-724e-325e6ac9f04c?t=1781766604253" target="_blank" rel="noopener noreferrer">Convocatoria BOD 116 ↗</a></p>
+      </details>
     </section>
   </main>
 
