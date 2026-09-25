@@ -75,6 +75,7 @@ function restoreSavedState() {
   $('#sex').value = state.sex;
   $('#apl-toggle').checked = Boolean(state.apl);
   $('#apl-help').hidden = !state.apl;
+  $('#apl-switch-word').textContent = state.apl ? 'Sí' : 'No';
   restoreMarks(state.marks);
 }
 
@@ -148,7 +149,9 @@ Object.entries(controls).forEach(([, control]) => control.fields.forEach(field =
 
 $('#sex').addEventListener('change', () => { persistState(); render(); });
 $('#apl-toggle').addEventListener('change', () => {
-  $('#apl-help').hidden = !$('#apl-toggle').checked;
+  const checked = $('#apl-toggle').checked;
+  $('#apl-help').hidden = !checked;
+  $('#apl-switch-word').textContent = checked ? 'Sí' : 'No';
   persistState();
   render();
 });
