@@ -1,0 +1,20 @@
+.tool-switch { display: flex; gap: 4px; padding: 4px; background: #e4e1da; border-radius: 5px; }
+.tool-tab { min-height: 34px; display: flex; align-items: center; padding: 0 14px; border: 2px solid var(--teal); border-radius: 5px; background: transparent; color: var(--teal); font: 600 11px/1 var(--mono); text-transform: uppercase; text-decoration: none; transition: color .15s, background .15s, border-color .15s; }
+.tool-tab:hover, .tool-tab:focus-visible { border-color: var(--ink); background: var(--ink); color: #fff; }
+.tool-tab.active { border-color: var(--teal); background: var(--teal); color: #fff; }
+
+.report-status.computed { color: #a9e0c8; }
+.result.score-0 b { color: var(--coral); }
+.result.score-1 b, .result.score-2 b { color: var(--warn); }
+.result.score-3 b, .result.score-4 b, .result.score-5 b { color: var(--good); }
+
+.permanencia-notice { display: block; padding: 24px 0 54px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 12px; line-height: 1.6; }
+.permanencia-notice p { max-width: 900px; margin: 0 0 10px; }
+.permanencia-notice code { background: var(--alt); padding: 1px 5px; border-radius: 3px; font-family: var(--mono); }
+.permanencia-notice .sources a { color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: var(--coral); text-underline-offset: 3px; }
+.permanencia-notice .sources a:hover, .permanencia-notice .sources a:focus-visible { color: var(--coral); }
+
+@media (max-width: 570px) {
+  .topbar-actions { gap: 6px; }
+  .tool-tab { padding: 0 8px; font-size: 9px; }
+}

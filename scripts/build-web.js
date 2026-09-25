@@ -8,7 +8,7 @@ const dist = path.join(root, 'dist');
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 
-for (const relativePath of ['index.html', 'privacy.html', 'styles', 'src', 'assets']) {
+for (const relativePath of ['index.html', 'privacy.html', 'styles', 'src', 'assets', 'permanencia']) {
   await cp(path.join(root, relativePath), path.join(dist, relativePath), { recursive: true });
 }
 
