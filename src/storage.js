@@ -1,4 +1,4 @@
-import data from './data/annex-ii.json' with { type: 'json' };
+import data from './data/annex-ii.js';
 import { officialMarkBounds } from './reference-options.js';
 
 export const STORAGE_KEY = 'tgcf-evaluacion-fisica-v1';

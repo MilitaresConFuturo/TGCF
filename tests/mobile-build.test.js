@@ -17,7 +17,7 @@ const dist = path.join(root, 'dist');
     'styles/main.css',
     'src/app.js',
     'src/calculator.js',
-    'src/data/annex-ii.json',
+    'src/data/annex-ii.js',
     'assets/logo-mcf-oficial-2026.png',
   ]) {
     assert.equal(existsSync(path.join(dist, relativePath)), true, relativePath);

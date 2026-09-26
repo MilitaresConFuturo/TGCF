@@ -1,8 +1,8 @@
-import data from './data/anexo-iii.json' with { type: 'json' };
 import { calculateScore, rangeLabelFor, totalFromScores } from './calculator.js';
 import { formatAgility, formatDuration } from './formatters.js';
 import { durationFromParts, durationToParts } from './time-inputs.js';
 import { loadState, saveState } from './storage.js';
+import data from './data/anexo-iii.js';
 
 const $ = selector => document.querySelector(selector);
 const tests = data.tests;

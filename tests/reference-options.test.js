@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import data from '../src/data/annex-ii.json' with { type: 'json' };
+import data from '../src/data/annex-ii.js';
 import { officialMarkBounds, officialReferenceMarks } from '../src/reference-options.js';
 
 test('lists each official mark once in ascending order for a picker', () => {
