@@ -32,10 +32,11 @@ const dist = path.join(root, 'dist');
   assert.match(html, /src="assets\/logo-mcf-oficial-2026\.png"/);
   assert.doesNotMatch(html, /src="assets\/logo-mcf\.png"/);
   assert.match(html, /src\/app\.js\?v=10/);
-  assert.match(html, /styles\/main\.css\?v=19/);
+  assert.match(html, /styles\/main\.css\?v=20/);
   assert.match(html, /<title>TGCF<\/title>/);
   assert.match(html, /theme-color" content="#193540"/);
-  assert.match(html, /family=Heebo:wght@400;600;700&family=Poppins:wght@400;600/);
+  assert.match(html, /assets\/fonts\/fonts\.css/);
+  assert.doesNotMatch(html, /fonts\.googleapis\.com/);
   for (const color of ['#009d7f', '#193540', '#1e1e1e', '#ffffff', '#f2f4f5', '#dce1e3', '#bf1210', '#e7b72a']) {
     assert.match(css, new RegExp(color), `missing corporate color ${color}`);
   }
