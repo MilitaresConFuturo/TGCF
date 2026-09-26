@@ -31,6 +31,8 @@
   .page-permanencia .normativa-group { gap: 7px; }
   .normativa-group .normativa-link { flex: none; width: 100%; min-width: 0; }
   .normativa-group .normativa-link strong { white-space: normal; }
+  /* Reserve the button's full height so it starts below the result divider. */
+  .metric .result { min-height: 44px; }
 }
 
 .apl-toggle-label { display: flex !important; flex-direction: row !important; align-items: center; gap: 8px; grid-template-columns: none !important; text-transform: none !important; letter-spacing: 0 !important; font-weight: 500 !important; }
