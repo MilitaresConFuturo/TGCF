@@ -14,19 +14,23 @@
 .permanencia-notice .sources a { color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: var(--coral); text-underline-offset: 3px; }
 .permanencia-notice .sources a:hover, .permanencia-notice .sources a:focus-visible { color: var(--coral); }
 
-@media (max-width: 570px) {
-  .page-permanencia .topbar { overflow: visible; flex-wrap: wrap; height: auto; row-gap: 8px; }
-  .page-permanencia .topbar-actions { gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
-  .page-permanencia .tool-tab { padding: 0 8px; font-size: 9px; }
-  .page-permanencia .back-to-site { order: 3; }
-}
-
-.normativa-group { display: flex; gap: 10px; }
-.normativa-group .normativa-link strong { white-space: nowrap; }
+/* Keep the desktop header visually unchanged; groups become layout boxes only on mobile. */
+.tabs-group { display: contents; }
+.normativa-group { display: contents; }
+.page-permanencia .normativa-group { display: flex; gap: 10px; }
 
 @media (max-width: 570px) {
-  .page-permanencia .normativa-group { flex-direction: row; gap: 8px; order: 4; width: 100%; justify-content: flex-end; }
-  .page-permanencia .normativa-group .normativa-link { flex: none; }
+  .topbar { height: auto; overflow: visible; flex-wrap: wrap; row-gap: 4px; }
+  .brand { flex: 1 1 100%; }
+  .topbar-actions { flex: 1 1 100%; min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr) 118px; align-items: start; gap: 8px; }
+  .tabs-group { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
+  .tool-switch { gap: 2px; padding: 2px; }
+  .tool-tab { min-height: 28px; padding: 0 6px; font-size: 8px; }
+  .back-to-site { padding: 5px 7px; font-size: 9px; }
+  .normativa-group { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; min-width: 0; }
+  .page-permanencia .normativa-group { gap: 7px; }
+  .normativa-group .normativa-link { flex: none; width: 100%; min-width: 0; }
+  .normativa-group .normativa-link strong { white-space: normal; }
 }
 
 .apl-toggle-label { display: flex !important; flex-direction: row !important; align-items: center; gap: 8px; grid-template-columns: none !important; text-transform: none !important; letter-spacing: 0 !important; font-weight: 500 !important; }
@@ -48,8 +52,4 @@
 .apl-switch input:focus-visible ~ .apl-switch-track { outline: 2px solid var(--coral); outline-offset: 2px; }
 .apl-switch-word { font: 700 10px/1 var(--mono); text-transform: uppercase; color: var(--ink-soft); min-width: 16px; }
 .apl-switch input:checked ~ .apl-switch-word { color: var(--teal); }
-
-@media (max-width: 570px) {
-  .page-permanencia .normativa-group { flex-direction: column; gap: 2px; }
-}
 
