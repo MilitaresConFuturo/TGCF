@@ -28,7 +28,11 @@ const controls = {
   run: durationControl('run'),
   agility: {
     fields: [$('#agility')],
-    read: () => $('#agility').value === '' ? null : Math.round(Number($('#agility').value) * 10),
+    read: () => {
+      const raw = $('#agility').value.trim().replace(',', '.');
+      if (raw === '' || !/^\d+(\.\d+)?$/.test(raw)) return null;
+      return Math.round(Number(raw) * 10);
+    },
     state: () => $('#agility').value,
     restore: value => { $('#agility').value = value ?? ''; },
     hasAny: () => $('#agility').value !== '',
@@ -112,6 +116,7 @@ function updateMetric(key) {
 function updateReport(scores) {
   const status = $('#report-status');
   const aplMode = $('#apl-toggle').checked;
+  const excessNote = $('#excess-note');
   const values = Object.values(scores);
   const hasAny = values.some(score => score !== null);
   const { sum, computed, complete } = totalFromScores(values.map(score => score ?? NaN), { aplMode });
@@ -122,19 +127,22 @@ function updateReport(scores) {
     $('#informe-title').textContent = hasAny
       ? (aplMode ? 'Completa al menos una prueba para ver el total.' : 'Completa las 4 pruebas para ver el total.')
       : 'Introduce tus marcas para calcular la puntuación.';
-    $('#sum-raw').textContent = '—';
     $('#total-computed').textContent = '—';
+    excessNote.hidden = true;
     return;
   }
   status.className = 'report-status computed';
   $('#status-word').textContent = `${computed}/15`;
-  $('#informe-title').textContent = sum > 15
-    ? 'Suma bruta superior a 15: se aplica el tope oficial.'
-    : aplMode
-      ? 'Puntuación APL: solo se suman las pruebas realizadas.'
-      : 'Puntuación física para el concurso de permanencia.';
-  $('#sum-raw').textContent = aplMode ? `${sum}` : `${sum}/20`;
+  $('#informe-title').textContent = aplMode
+    ? 'Puntuación APL: solo se suman las pruebas realizadas.'
+    : 'Puntuación física para el concurso de permanencia.';
   $('#total-computed').textContent = `${computed}/15`;
+  if (sum > 15) {
+    excessNote.hidden = false;
+    excessNote.textContent = `Has sumado ${sum} puntos en las pruebas; el máximo que cuenta es 15, así que tu puntuación se queda en ${computed}.`;
+  } else {
+    excessNote.hidden = true;
+  }
 }
 
 function render() {

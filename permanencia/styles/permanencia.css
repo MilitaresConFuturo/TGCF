@@ -15,16 +15,25 @@
 .permanencia-notice .sources a:hover, .permanencia-notice .sources a:focus-visible { color: var(--coral); }
 
 @media (max-width: 570px) {
-  .topbar-actions { gap: 6px; }
+  .topbar { overflow: visible; flex-wrap: wrap; height: auto; row-gap: 8px; }
+  .topbar-actions { gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
   .tool-tab { padding: 0 8px; font-size: 9px; }
+  .back-to-site { order: 3; }
 }
 
 .normativa-group { display: flex; gap: 10px; }
 .normativa-group .normativa-link strong { white-space: nowrap; }
 
+@media (max-width: 570px) {
+  .normativa-group { flex-direction: row; gap: 8px; order: 4; width: 100%; justify-content: flex-end; }
+  .normativa-group .normativa-link { flex: none; }
+}
+
 .apl-toggle-label { display: flex !important; flex-direction: row !important; align-items: center; gap: 8px; grid-template-columns: none !important; text-transform: none !important; letter-spacing: 0 !important; font-weight: 500 !important; }
 .apl-toggle-label input[type="checkbox"] { width: auto; min-height: 0; flex: none; }
 .apl-help { margin: 12px 0 0; padding: 12px 14px; background: var(--alt); color: var(--ink-soft); font-size: 12px; line-height: 1.5; border-left: 3px solid var(--yellow); }
+.medical-notice { margin: 10px 0 0; padding: 10px 14px; background: var(--alt); color: var(--ink-soft); font-size: 12px; line-height: 1.5; border-left: 3px solid var(--coral); }
+.excess-note { margin: 0 0 25px; padding: 10px 14px; background: var(--alt); color: var(--ink-soft); font-size: 12px; line-height: 1.5; border-left: 3px solid var(--warn); }
 
 .apl-field { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .apl-question { font: 600 12px/1.3 var(--mono); text-transform: uppercase; letter-spacing: .02em; color: var(--ink); }
