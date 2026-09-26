@@ -1,0 +1,104 @@
+{
+  "source": {
+    "orden": "Orden DEF/15/2026, de 13 de enero (BOE núm. 19, 21 de enero de 2026)",
+    "orden_articulo": "Anexo III, apartado quinto",
+    "convocatoria": "Resolución 452/08724/26, BOD núm. 116, 17 de junio de 2026",
+    "convocatoria_articulo": "Base común novena, apartado 1.3, y apéndice 6",
+    "regla_total": "MIN(suma de las 4 pruebas, 15). La base novena 1.3 fija la puntuación final como la suma de los ejercicios con 15 puntos como máxima obtenible; el anexo III quinto de la Orden repite 'Máximo 15 puntos' bajo una tabla de 0-5 por prueba (suma bruta hasta 20). La lectura MIN(suma,15) es la única compatible con que el concurso completo (méritos 40 + académicos 20 + IPEC 25 + psicofísica 15) sume exactamente 100 puntos según la base novena 1."
+  },
+  "maxTotal": 15,
+  "tests": {
+    "flex": {
+      "label": "Flexo-extensiones de brazos",
+      "unit": "repeticiones",
+      "direction": "higher",
+      "bySex": {
+        "M": [
+          { "rangeLabel": ">55", "mark": 56, "score": 5 },
+          { "rangeLabel": "44–55", "mark": 44, "score": 4 },
+          { "rangeLabel": "34–43", "mark": 34, "score": 3 },
+          { "rangeLabel": "24–33", "mark": 24, "score": 2 },
+          { "rangeLabel": "11–23", "mark": 11, "score": 1 },
+          { "rangeLabel": "0–10", "mark": 0, "score": 0 }
+        ],
+        "F": [
+          { "rangeLabel": ">37", "mark": 38, "score": 5 },
+          { "rangeLabel": "30–37", "mark": 30, "score": 4 },
+          { "rangeLabel": "22–29", "mark": 22, "score": 3 },
+          { "rangeLabel": "14–21", "mark": 14, "score": 2 },
+          { "rangeLabel": "6–13", "mark": 6, "score": 1 },
+          { "rangeLabel": "0–5", "mark": 0, "score": 0 }
+        ]
+      }
+    },
+    "plank": {
+      "label": "Plancha isométrica",
+      "unit": "segundos",
+      "direction": "higher",
+      "bySex": {
+        "M": [
+          { "rangeLabel": ">4:00", "mark": 241, "score": 5 },
+          { "rangeLabel": "4:00–2:40", "mark": 160, "score": 4 },
+          { "rangeLabel": "2:39–1:25", "mark": 85, "score": 3 },
+          { "rangeLabel": "1:24–0:40", "mark": 40, "score": 2 },
+          { "rangeLabel": "0:39–0:25", "mark": 25, "score": 1 },
+          { "rangeLabel": "-0:25", "mark": 0, "score": 0 }
+        ],
+        "F": [
+          { "rangeLabel": ">4:00", "mark": 241, "score": 5 },
+          { "rangeLabel": "4:00–2:40", "mark": 160, "score": 4 },
+          { "rangeLabel": "2:39–1:25", "mark": 85, "score": 3 },
+          { "rangeLabel": "1:24–0:40", "mark": 40, "score": 2 },
+          { "rangeLabel": "0:39–0:25", "mark": 25, "score": 1 },
+          { "rangeLabel": "-0:25", "mark": 0, "score": 0 }
+        ]
+      }
+    },
+    "run": {
+      "label": "Carrera · 2.000 m",
+      "unit": "segundos",
+      "direction": "lower",
+      "bySex": {
+        "M": [
+          { "rangeLabel": "<6:51", "mark": 410, "score": 5 },
+          { "rangeLabel": "6:51–8:10", "mark": 490, "score": 4 },
+          { "rangeLabel": "8:11–9:30", "mark": 570, "score": 3 },
+          { "rangeLabel": "9:31–10:50", "mark": 650, "score": 2 },
+          { "rangeLabel": "10:51–12:10", "mark": 730, "score": 1 },
+          { "rangeLabel": ">12:10", "mark": 99999, "score": 0 }
+        ],
+        "F": [
+          { "rangeLabel": "<7:55", "mark": 474, "score": 5 },
+          { "rangeLabel": "7:55–9:14", "mark": 554, "score": 4 },
+          { "rangeLabel": "9:15–10:34", "mark": 634, "score": 3 },
+          { "rangeLabel": "10:35–11:54", "mark": 714, "score": 2 },
+          { "rangeLabel": "11:55–13:54", "mark": 834, "score": 1 },
+          { "rangeLabel": ">13:54", "mark": 99999, "score": 0 }
+        ]
+      }
+    },
+    "agility": {
+      "label": "Circuito de agilidad-velocidad",
+      "unit": "décimas de segundo",
+      "direction": "lower",
+      "bySex": {
+        "M": [
+          { "rangeLabel": "<12,8 s", "mark": 127, "score": 5 },
+          { "rangeLabel": "12,8–13,7 s", "mark": 137, "score": 4 },
+          { "rangeLabel": "13,8–14,8 s", "mark": 148, "score": 3 },
+          { "rangeLabel": "14,9–15,2 s", "mark": 152, "score": 2 },
+          { "rangeLabel": "15,3–16,2 s", "mark": 162, "score": 1 },
+          { "rangeLabel": ">16,2 s", "mark": 9999, "score": 0 }
+        ],
+        "F": [
+          { "rangeLabel": "<14,1 s", "mark": 140, "score": 5 },
+          { "rangeLabel": "14,1–14,8 s", "mark": 148, "score": 4 },
+          { "rangeLabel": "14,9–15,8 s", "mark": 158, "score": 3 },
+          { "rangeLabel": "15,9–16,8 s", "mark": 168, "score": 2 },
+          { "rangeLabel": "16,9–17,8 s", "mark": 178, "score": 1 },
+          { "rangeLabel": ">17,8 s", "mark": 9999, "score": 0 }
+        ]
+      }
+    }
+  }
+}

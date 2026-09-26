@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#193540">
+  <title>Permanencia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/main.css?v=19">
+  <link rel="stylesheet" href="styles/permanencia.css?v=3">
+</head>
+<body class="page-permanencia">
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Permanencia, inicio"><img class="brand-logo" src="../assets/logo-mcf-oficial-2026.png" alt="Logotipo de Militares con Futuro"><span>Permanencia</span></a>
+    <nav class="topbar-actions" aria-label="Enlaces de la aplicación">
+      <div class="tabs-group">
+        <div class="tool-switch" role="group" aria-label="Herramienta">
+          <a class="tool-tab" href="../">TGCF</a>
+          <a class="tool-tab active" href="./" aria-current="page">Permanencia</a>
+        </div>
+        <a class="back-to-site" href="https://www.militaresconfuturo.es">Volver a la web</a>
+      </div>
+      <div class="normativa-group">
+        <a class="normativa-link" href="https://www.boe.es/boe/dias/2026/01/21/pdfs/BOE-A-2026-1379.pdf" target="_blank" rel="noopener noreferrer" aria-label="Abrir Orden DEF/15/2026, Anexo III apartado quinto"><span>Normativa</span><strong>Orden DEF/15/2026 ↗</strong></a>
+        <a class="normativa-link" href="https://www.defensa.gob.es/documents/1982695/2413197/CONVOCATORIA%2BPERMANENCIA.pdf/9a8abad9-9fb6-71d9-724e-325e6ac9f04c?t=1781766604253" target="_blank" rel="noopener noreferrer" aria-label="Abrir convocatoria Resolución 452/08724/26, BOD 116"><span>Convocatoria</span><strong>BOD 116 ↗</strong></a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="inicio" class="shell">
+    <section class="setup" aria-label="Perfil">
+      <div class="profile-controls">
+        <label>Sexo
+          <select id="sex" aria-label="Sexo">
+            <option value="M">Hombre</option>
+            <option value="F">Mujer</option>
+          </select>
+        </label>
+        <div class="apl-field">
+          <span class="apl-question">¿Tienes certificado APL (apto con limitaciones)?</span>
+          <label class="apl-switch">
+            <input id="apl-toggle" type="checkbox" role="switch" aria-describedby="apl-help">
+            <span class="apl-switch-track" aria-hidden="true"><span class="apl-switch-thumb"></span></span>
+            <span class="apl-switch-word" id="apl-switch-word">No</span>
+          </label>
+        </div>
+      </div>
+      <p id="apl-help" class="apl-help" hidden>Marca solo las pruebas que tu certificado médico te permite realizar. Las que dejes vacías no puntúan ni penalizan: la convocatoria establece que a este personal se le suman únicamente los ejercicios que puede efectuar (BOD 116, base novena 1.3).</p>
+    </section>
+
+    <section class="measurements" aria-label="Pruebas físicas de permanencia">
+      <div class="metrics" id="metrics">
+        <article class="metric" data-test="flex">
+          <div class="metric-number">01</div>
+          <div class="metric-main"><p class="metric-kicker">Potencia tren superior</p><h3>Flexo-extensiones</h3></div>
+          <div class="entry-stack"><label class="entry"><span>Tu marca</span><input id="flex" type="number" min="0" inputmode="numeric" placeholder="—"><small>repeticiones</small></label></div>
+          <div class="result" id="flex-result" aria-live="polite">Sin marca</div>
+          <button class="baremo-button" data-baremo="flex" type="button">Baremo</button>
+        </article>
+
+        <article class="metric" data-test="plank">
+          <div class="metric-number">02</div>
+          <div class="metric-main"><p class="metric-kicker">Fuerza abdominal</p><h3>Plancha isométrica</h3></div>
+          <div class="entry-stack"><div class="entry duration-entry" role="group" aria-labelledby="plank-entry-label"><span id="plank-entry-label">Tu marca</span><div class="duration-fields"><label><span>Min.</span><input id="plank-minutes" type="number" min="0" inputmode="numeric" placeholder="1" aria-label="Minutos de plancha"></label><span class="duration-separator" aria-hidden="true">:</span><label><span>Seg.</span><input id="plank-seconds" type="number" min="0" max="59" inputmode="numeric" placeholder="30" aria-label="Segundos de plancha"></label></div><small>min : seg</small></div></div>
+          <div class="result" id="plank-result" aria-live="polite">Sin marca</div>
+          <button class="baremo-button" data-baremo="plank" type="button">Baremo</button>
+        </article>
+
+        <article class="metric" data-test="run">
+          <div class="metric-number">03</div>
+          <div class="metric-main"><p class="metric-kicker">Resistencia</p><h3>Carrera · 2.000 m</h3></div>
+          <div class="entry-stack"><div class="entry duration-entry" role="group" aria-labelledby="run-entry-label"><span id="run-entry-label">Tu marca</span><div class="duration-fields"><label><span>Min.</span><input id="run-minutes" type="number" min="0" inputmode="numeric" placeholder="9" aria-label="Minutos de carrera"></label><span class="duration-separator" aria-hidden="true">:</span><label><span>Seg.</span><input id="run-seconds" type="number" min="0" max="59" inputmode="numeric" placeholder="30" aria-label="Segundos de carrera"></label></div><small>min : seg</small></div></div>
+          <div class="result" id="run-result" aria-live="polite">Sin marca</div>
+          <button class="baremo-button" data-baremo="run" type="button">Baremo</button>
+        </article>
+
+        <article class="metric" data-test="agility">
+          <div class="metric-number">04</div>
+          <div class="metric-main"><p class="metric-kicker">Agilidad y velocidad</p><h3>Circuito</h3></div>
+          <div class="entry-stack"><label class="entry"><span>Tu marca</span><input id="agility" type="text" inputmode="decimal" placeholder="13,5"><small>segundos</small></label></div>
+          <div class="result" id="agility-result" aria-live="polite">Sin marca</div>
+          <button class="baremo-button" data-baremo="agility" type="button">Baremo</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="report" class="report" aria-labelledby="informe-title">
+      <div class="report-status waiting" id="report-status"><span class="status-ring" aria-hidden="true"></span><span id="status-word">PENDIENTE</span></div>
+      <div class="report-copy"><p class="eyebrow">Puntuación de aptitud psicofísica</p><h2 id="informe-title">Introduce tus 4 marcas para calcular la puntuación.</h2></div>
+      <dl class="report-numbers"><div><dt>Total computable</dt><dd id="total-computed">—</dd></div></dl>
+    </section>
+    <p id="excess-note" class="excess-note" hidden></p>
+
+    <section id="fuentes" class="legal permanencia-notice">
+      <details class="source-note">
+        <summary><b>Sobre el total mostrado</b> — por qué el máximo son 15 puntos, no 20</summary>
+        <p>La Orden DEF/15/2026 (anexo III, apartado quinto) da 0–5 puntos por cada una de las 4 pruebas — hasta 20 en bruto — pero fija «Máximo 15 puntos». La convocatoria de permanencia (Resolución 452/08724/26, base común novena, apartado 1.3) confirma que la puntuación final es la suma de los ejercicios con 15 como máximo obtenible. El total mostrado aquí aplica <code>MÍN(suma, 15)</code>, la única lectura compatible con que el concurso completo sume exactamente 100 puntos (40 méritos + 20 académicos + 25 IPEC + 15 psicofísica). Consulta siempre la normativa oficial vigente antes de una convocatoria real.</p>
+        <p class="sources"><a href="https://www.boe.es/boe/dias/2026/01/21/pdfs/BOE-A-2026-1379.pdf" target="_blank" rel="noopener noreferrer">Orden DEF/15/2026 · BOE ↗</a> · <a href="https://www.defensa.gob.es/documents/1982695/2413197/CONVOCATORIA%2BPERMANENCIA.pdf/9a8abad9-9fb6-71d9-724e-325e6ac9f04c?t=1781766604253" target="_blank" rel="noopener noreferrer">Convocatoria BOD 116 ↗</a></p>
+      </details>
+    </section>
+  </main>
+
+  <dialog id="baremo-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-head"><div><p class="eyebrow">Anexo III · apartado quinto</p><h2 id="dialog-title">Baremo oficial</h2></div><button id="close-dialog" class="close-button" type="button" aria-label="Cerrar">×</button></div>
+    <p id="dialog-subtitle" class="dialog-subtitle"></p>
+    <div class="table-wrap"><table><thead><tr><th>Marca</th><th>Puntos</th></tr></thead><tbody id="baremo-body"></tbody></table></div>
+  </dialog>
+
+  <script type="module" src="src/app.js?v=1"></script>
+</body>
+</html>

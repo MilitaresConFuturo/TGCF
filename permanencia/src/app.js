@@ -1,0 +1,180 @@
+import data from './data/anexo-iii.json' with { type: 'json' };
+import { calculateScore, rangeLabelFor, totalFromScores } from './calculator.js';
+import { formatAgility, formatDuration } from './formatters.js';
+import { durationFromParts, durationToParts } from './time-inputs.js';
+import { loadState, saveState } from './storage.js';
+
+const $ = selector => document.querySelector(selector);
+const tests = data.tests;
+const storage = availableStorage();
+
+function availableStorage() {
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
+}
+
+const controls = {
+  flex: {
+    fields: [$('#flex')],
+    read: () => $('#flex').value === '' ? null : Number($('#flex').value),
+    state: () => $('#flex').value,
+    restore: value => { $('#flex').value = value ?? ''; },
+    hasAny: () => $('#flex').value !== '',
+  },
+  plank: durationControl('plank'),
+  run: durationControl('run'),
+  agility: {
+    fields: [$('#agility')],
+    read: () => {
+      const raw = $('#agility').value.trim().replace(',', '.');
+      if (raw === '' || !/^\d+(\.\d+)?$/.test(raw)) return null;
+      return Math.round(Number(raw) * 10);
+    },
+    state: () => $('#agility').value,
+    restore: value => { $('#agility').value = value ?? ''; },
+    hasAny: () => $('#agility').value !== '',
+  },
+};
+
+function durationControl(key) {
+  const minutes = $(`#${key}-minutes`);
+  const seconds = $(`#${key}-seconds`);
+  return {
+    fields: [minutes, seconds],
+    read: () => durationFromParts(minutes.value, seconds.value, { maxSeconds: 5999 }),
+    state: () => ({ minutes: minutes.value, seconds: seconds.value }),
+    restore: value => {
+      minutes.value = value?.minutes ?? '';
+      seconds.value = value?.seconds ?? '';
+    },
+    hasAny: () => minutes.value !== '' || seconds.value !== '',
+    isIncomplete: () => (minutes.value === '') !== (seconds.value === ''),
+  };
+}
+
+restoreSavedState();
+
+function sex() {
+  return $('#sex').value;
+}
+
+function marksState() {
+  return Object.fromEntries(Object.entries(controls).map(([key, control]) => [key, control.state()]));
+}
+
+function restoreMarks(marks) {
+  Object.entries(controls).forEach(([key, control]) => control.restore(marks?.[key]));
+}
+
+function persistState() {
+  saveState(storage, { sex: sex(), apl: $('#apl-toggle').checked, marks: marksState() });
+}
+
+function restoreSavedState() {
+  const state = loadState(storage);
+  if (!state) return;
+  $('#sex').value = state.sex;
+  $('#apl-toggle').checked = Boolean(state.apl);
+  $('#apl-help').hidden = !state.apl;
+  $('#apl-switch-word').textContent = state.apl ? 'Sí' : 'No';
+  restoreMarks(state.marks);
+}
+
+function displayMark(key, value) {
+  if (value === null || value === undefined) return '—';
+  if (key === 'plank') return formatDuration(value);
+  if (key === 'run') return formatDuration(value);
+  if (key === 'agility') return formatAgility(value);
+  return `${value} rep.`;
+}
+
+function updateMetric(key) {
+  const control = controls[key];
+  const value = control.read();
+  const article = document.querySelector(`[data-test="${key}"]`);
+  const resultElement = $(`#${key}-result`);
+  const score = calculateScore(tests[key], sex(), value);
+  const aplMode = $('#apl-toggle').checked;
+
+  if (value === null) {
+    resultElement.className = 'result';
+    resultElement.textContent = !control.hasAny()
+      ? (aplMode ? 'No realizada (APL)' : 'Sin marca')
+      : control.isIncomplete?.() ? 'Completa min. y seg.'
+        : 'Marca no válida';
+    return null;
+  }
+  const rangeLabel = rangeLabelFor(tests[key], sex(), value);
+  resultElement.className = `result score-${score}`;
+  resultElement.innerHTML = `<b>${score} pts</b>Tramo oficial: ${rangeLabel}`;
+  return score;
+}
+
+function updateReport(scores) {
+  const status = $('#report-status');
+  const aplMode = $('#apl-toggle').checked;
+  const excessNote = $('#excess-note');
+  const values = Object.values(scores);
+  const hasAny = values.some(score => score !== null);
+  const { sum, computed, complete } = totalFromScores(values.map(score => score ?? NaN), { aplMode });
+
+  if (!complete) {
+    status.className = 'report-status waiting';
+    $('#status-word').textContent = 'PENDIENTE';
+    $('#informe-title').textContent = hasAny
+      ? (aplMode ? 'Completa al menos una prueba para ver el total.' : 'Completa las 4 pruebas para ver el total.')
+      : 'Introduce tus marcas para calcular la puntuación.';
+    $('#total-computed').textContent = '—';
+    excessNote.hidden = true;
+    return;
+  }
+  status.className = 'report-status computed';
+  $('#status-word').textContent = `${computed}/15`;
+  $('#informe-title').textContent = aplMode
+    ? 'Puntuación APL: solo se suman las pruebas realizadas.'
+    : 'Puntuación física para el concurso de permanencia.';
+  $('#total-computed').textContent = `${computed}/15`;
+  if (sum > 15) {
+    excessNote.hidden = false;
+    excessNote.textContent = `Has sumado ${sum} puntos en las pruebas; el máximo que cuenta es 15, así que tu puntuación se queda en ${computed}.`;
+  } else {
+    excessNote.hidden = true;
+  }
+}
+
+function render() {
+  const scores = Object.fromEntries(Object.keys(tests).map(key => [key, updateMetric(key)]));
+  updateReport(scores);
+}
+
+Object.entries(controls).forEach(([, control]) => control.fields.forEach(field => field.addEventListener('input', () => {
+  persistState();
+  render();
+})));
+
+$('#sex').addEventListener('change', () => { persistState(); render(); });
+$('#apl-toggle').addEventListener('change', () => {
+  const checked = $('#apl-toggle').checked;
+  $('#apl-help').hidden = !checked;
+  $('#apl-switch-word').textContent = checked ? 'Sí' : 'No';
+  persistState();
+  render();
+});
+
+document.querySelectorAll('.baremo-button').forEach(button => button.addEventListener('click', () => openBaremo(button.dataset.baremo)));
+$('#close-dialog').addEventListener('click', () => $('#baremo-dialog').close());
+$('#baremo-dialog').addEventListener('click', event => { if (event.target === $('#baremo-dialog')) $('#baremo-dialog').close(); });
+
+function openBaremo(key) {
+  const test = tests[key];
+  const rows = test.bySex[sex() === 'F' ? 'F' : 'M'];
+  $('#dialog-title').textContent = test.label;
+  $('#dialog-subtitle').textContent = `${sex() === 'F' ? 'Mujer' : 'Hombre'} · Anexo III, apartado quinto`;
+  $('#baremo-body').innerHTML = rows.map(row => `<tr><td>${row.rangeLabel}</td><td>${row.score}</td></tr>`).join('');
+  $('#baremo-dialog').showModal();
+}
+
+render();
