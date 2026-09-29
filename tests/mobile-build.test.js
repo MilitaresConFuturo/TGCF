@@ -17,7 +17,7 @@ const dist = path.join(root, 'dist');
     'styles/main.css',
     'src/app.js',
     'src/calculator.js',
-    'src/data/annex-ii.json',
+    'src/data/annex-ii.js',
     'assets/logo-mcf-oficial-2026.png',
   ]) {
     assert.equal(existsSync(path.join(dist, relativePath)), true, relativePath);
@@ -28,14 +28,19 @@ const dist = path.join(root, 'dist');
   assert.equal(logo.readUInt32BE(20), 356, 'the deployed logo must use the official horizontal asset');
 
   const html = readFileSync(path.join(dist, 'index.html'), 'utf8');
-  const css = readFileSync(path.join(dist, 'styles', 'main.css'), 'utf8').toLowerCase();
+  const css = html.toLowerCase();
   assert.match(html, /src="assets\/logo-mcf-oficial-2026\.png"/);
   assert.doesNotMatch(html, /src="assets\/logo-mcf\.png"/);
   assert.match(html, /src\/app\.js\?v=10/);
-  assert.match(html, /styles\/main\.css\?v=19/);
   assert.match(html, /<title>TGCF<\/title>/);
   assert.match(html, /theme-color" content="#193540"/);
-  assert.match(html, /family=Heebo:wght@400;600;700&family=Poppins:wght@400;600/);
+  // Styles and fonts must be inlined into the HTML itself (no external
+  // <link rel="stylesheet"> or font file requests) so the packaged Android
+  // WebView can never render an unstyled page due to a failed/late request.
+  assert.doesNotMatch(html, /<link rel="stylesheet"/);
+  assert.doesNotMatch(html, /fonts\.googleapis\.com/);
+  assert.match(html, /<style>/);
+  assert.match(html, /data:font\/ttf;base64,/);
   for (const color of ['#009d7f', '#193540', '#1e1e1e', '#ffffff', '#f2f4f5', '#dce1e3', '#bf1210', '#e7b72a']) {
     assert.match(css, new RegExp(color), `missing corporate color ${color}`);
   }
@@ -51,4 +56,11 @@ const dist = path.join(root, 'dist');
   assert.match(html, /id="profile-summary"/);
   assert.doesNotMatch(html, /id="mobile-progress-label"/);
   assert.doesNotMatch(html, /Preparación física|Tu referencia, prueba a prueba|El baremo que te corresponde|-[Rr]eference/);
+
+  const permHtml = readFileSync(path.join(dist, 'permanencia', 'index.html'), 'utf8');
+  assert.doesNotMatch(permHtml, /<link rel="stylesheet"/);
+  assert.doesNotMatch(permHtml, /fonts\.googleapis\.com/);
+  assert.match(permHtml, /<style>/);
+  assert.match(permHtml, /data:font\/ttf;base64,/);
+  assert.match(permHtml, /<title>Permanencia<\/title>/);
 });

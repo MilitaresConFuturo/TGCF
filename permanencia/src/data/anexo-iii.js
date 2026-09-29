@@ -1,4 +1,4 @@
-{
+export default {
   "source": {
     "orden": "Orden DEF/15/2026, de 13 de enero (BOE núm. 19, 21 de enero de 2026)",
     "orden_articulo": "Anexo III, apartado quinto",
@@ -101,4 +101,4 @@
       }
     }
   }
-}
+};

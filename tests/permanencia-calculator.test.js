@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import data from '../permanencia/src/data/anexo-iii.json' with { type: 'json' };
+import data from '../permanencia/src/data/anexo-iii.js';
 import { calculateScore, rangeLabelFor, totalFromScores } from '../permanencia/src/calculator.js';
 
 test('scores flexions by sex-specific bands, higher-is-better', () => {

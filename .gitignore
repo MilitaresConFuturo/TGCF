@@ -7,6 +7,8 @@ inst_user_settings.tmp
 android/keystore.properties
 *.jks
 *.keystore
+*.p12
+*.dpapi
 
 # Dependencias y registros
 node_modules/

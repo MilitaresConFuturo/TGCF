@@ -1,4 +1,4 @@
-{
+export default {
   "source": {
     "order": "Orden DEF/15/2026, de 13 de enero",
     "boe": "BOE núm. 19, 21 de enero de 2026",
@@ -5752,4 +5752,4 @@
       ]
     }
   }
-}
+};

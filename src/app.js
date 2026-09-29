@@ -1,10 +1,9 @@
-import data from './data/annex-ii.json' with { type: 'json' };
 import { ageBandIndex, calculateScore, minimumMarkForPoints, normalizeAgilityTenths } from './calculator.js';
 import { formatAgility, formatDuration } from './formatters.js';
 import { durationFromParts, durationToParts } from './time-inputs.js';
 import { loadState, saveState } from './storage.js';
-
 import { officialMarkBounds } from './reference-options.js';
+import data from './data/annex-ii.js';
 
 const $ = selector => document.querySelector(selector);
 const tests = data.tests;

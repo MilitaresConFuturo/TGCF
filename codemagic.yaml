@@ -1,0 +1,44 @@
+# Manual-only, unsigned iOS simulator QA. Never publish or sign here.
+workflows:
+  ios-simulator-private:
+    name: TGCF MCF - simulador iOS privado
+    instance_type: mac_mini_m2
+    max_build_duration: 90
+    environment:
+      node: 22
+      xcode: latest
+    triggering:
+      events: []
+    scripts:
+      - name: Tests y sincronización iOS
+        script: |
+          set -eu
+          npm ci
+          npm test
+          npm run build:web
+          npx cap sync ios
+      - name: Compilar para simulador sin firma
+        script: |
+          set -eu
+          xcodebuild -project ios/App/App.xcodeproj -scheme App \
+            -configuration Debug -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build-ios CODE_SIGNING_ALLOWED=NO build
+          test -d build-ios/Build/Products/Debug-iphonesimulator/App.app
+      - name: Arrancar app y capturar pantalla inicial
+        script: |
+          set -eu
+          mkdir -p qa-ios
+          xcrun simctl list devices available -j > qa-ios/dispositivos.json
+          DEVICE=$(python3 -c 'import json; d=json.load(open("qa-ios/dispositivos.json")); print(next(x["udid"] for devices in d["devices"].values() for x in devices if "iPhone" in x["name"] and x["state"]=="Shutdown"))')
+          xcrun simctl boot "$DEVICE"
+          xcrun simctl bootstatus "$DEVICE" -b
+          xcrun simctl install "$DEVICE" build-ios/Build/Products/Debug-iphonesimulator/App.app
+          xcrun simctl launch "$DEVICE" es.militaresconfuturo.tgcf
+          sleep 5
+          xcrun simctl io "$DEVICE" screenshot qa-ios/inicio.png
+          xcrun simctl shutdown "$DEVICE"
+    artifacts:
+      - qa-ios/inicio.png
+      - qa-ios/dispositivos.json
+    # No publishing section. No signed .ipa or .app artifact upload.

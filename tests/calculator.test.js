@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import data from '../src/data/annex-ii.json' with { type: 'json' };
+import data from '../src/data/annex-ii.js';
 import { ageBandIndex, calculateScore, minimumMarkForPoints, normalizeAgilityTenths, evaluate } from '../src/calculator.js';
 
 test('uses the official age bands at each boundary', () => {
