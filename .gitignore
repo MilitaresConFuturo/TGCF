@@ -13,3 +13,4 @@ android/keystore.properties
 # Dependencias y registros
 node_modules/
 npm-debug.log*
+dist-hosting/

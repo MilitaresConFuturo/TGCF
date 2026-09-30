@@ -5,7 +5,8 @@
     "build:web": "node scripts/build-web.js",
     "mobile:sync": "npm run build:web && npx cap sync",
     "mobile:open:android": "npx cap open android",
-    "mobile:open:ios": "npx cap open ios"
+    "mobile:open:ios": "npx cap open ios",
+    "build:hosting": "node scripts/build-hosting.js"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.2",
