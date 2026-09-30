@@ -20,6 +20,10 @@ test('hosting folder ships only the web files and links both tools with relative
   const permanencia = readFileSync(path.join(out, 'permanencia', 'index.html'), 'utf8');
   assert.match(tgcf, /<a class="tool-tab" href="permanencia\/index\.html">Permanencia 2026<\/a>/);
   assert.match(permanencia, /<a class="tool-tab" href="\.\.\/index\.html">TGCF 2027<\/a>/);
+  const privacy = readFileSync(path.join(out, 'privacy.html'), 'utf8');
+  assert.match(privacy, /TGCF 2027/);
+  assert.match(privacy, /Permanencia 2026/);
+  assert.match(permanencia, /<a href="\.\.\/privacy\.html">Política de privacidad<\/a>/);
   for (const html of [tgcf, permanencia]) {
     assert.doesNotMatch(html, /(href|src)="\//, 'no root-absolute paths: the folder must work under any name');
     assert.match(html, /class="back-to-site" href="https:\/\/www\.militaresconfuturo\.es"/);
