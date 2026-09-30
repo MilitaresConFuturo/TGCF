@@ -32,7 +32,7 @@ const dist = path.join(root, 'dist');
   assert.match(html, /src="assets\/logo-mcf-oficial-2026\.png"/);
   assert.doesNotMatch(html, /src="assets\/logo-mcf\.png"/);
   assert.match(html, /src\/app\.js\?v=10/);
-  assert.match(html, /<title>TGCF<\/title>/);
+  assert.match(html, /<title>TGCF 2027<\/title>/);
   assert.match(html, /theme-color" content="#193540"/);
   // Styles and fonts must be inlined into the HTML itself (no external
   // <link rel="stylesheet"> or font file requests) so the packaged Android
@@ -62,5 +62,5 @@ const dist = path.join(root, 'dist');
   assert.doesNotMatch(permHtml, /fonts\.googleapis\.com/);
   assert.match(permHtml, /<style>/);
   assert.match(permHtml, /data:font\/ttf;base64,/);
-  assert.match(permHtml, /<title>Permanencia<\/title>/);
+  assert.match(permHtml, /<title>Permanencia 2026<\/title>/);
 });
