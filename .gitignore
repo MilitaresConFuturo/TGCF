@@ -1,6 +1,7 @@
 # Paquetes locales de distribución
 tgcf-evaluacion-fisica.zip
 dist/
+dist-wordpress/
 inst_user_settings.tmp
 
 # Firma Android: mantener siempre fuera del repositorio

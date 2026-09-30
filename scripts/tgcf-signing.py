@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Custodia local de la firma TGCF en Windows (sin secretos en el repositorio).
 
-Uso: python scripts/tgcf-signing.py init|status|build|recovery
+Uso: python scripts/tgcf-signing.py init|status|build|bundle|recovery
 La contraseña aleatoria se protege con DPAPI CurrentUser; recovery SOLO se
 muestra en la consola local del dueño para anotarla fuera del ordenador.
 """
@@ -140,12 +140,43 @@ def build():
                    cwd=ROOT / 'android', env=env, check=True)
     verify_artifact(sdk)
 
+def bundle():
+    """Genera el AAB firmado para Google Play (clave de subida = la misma clave de custodia)."""
+    pw = password()
+    if not KEY.exists(): raise SystemExit('Falta el almacén de firma.')
+    env = os.environ.copy()
+    env['TGCF_SIGNING_FILE'] = str(KEY)
+    env['TGCF_SIGNING_PASSWORD'] = pw
+    java = Path(os.environ['LOCALAPPDATA']) / 'TGCF-Toolchain' / 'jdk-21.0.12.1+1'
+    if not (java / 'bin' / 'javac.exe').exists():
+        raise SystemExit('Falta JDK 21 completo para compilar Android (javac.exe).')
+    env['JAVA_HOME'] = str(java)
+    env['PATH'] = str(java / 'bin') + os.pathsep + env['PATH']
+    sdk = Path(os.environ['LOCALAPPDATA']) / 'TGCF-Toolchain' / 'android-sdk'
+    if not (sdk / 'platforms' / 'android-36' / 'android.jar').exists():
+        raise SystemExit('Falta Android SDK API 36 para compilar.')
+    env['ANDROID_HOME'] = str(sdk)
+    env['ANDROID_SDK_ROOT'] = str(sdk)
+    subprocess.run(['npm.cmd', 'run', 'mobile:sync'], cwd=ROOT, env=env, check=True)
+    subprocess.run([str(ROOT / 'android' / 'gradlew.bat'), 'bundleRelease', '--no-daemon'],
+                   cwd=ROOT / 'android', env=env, check=True)
+    aab = ROOT / 'android' / 'app' / 'build' / 'outputs' / 'bundle' / 'release' / 'app-release.aab'
+    out = subprocess.run([str(java / 'bin' / 'keytool.exe'), '-printcert', '-jarfile', str(aab)],
+                         check=True, capture_output=True, text=True, errors='replace').stdout
+    m = re.search(r'SHA256:\s*([0-9A-F:]+)', out)
+    digest = m.group(1).replace(':', '').lower() if m else ''
+    if digest != EXPECTED_SIGNER_SHA256:
+        raise SystemExit('Firma inesperada en el AAB: NO subir a Google Play.')
+    print('AAB firmado con el certificado esperado:', digest)
+    print('Archivo:', aab, f'({aab.stat().st_size} bytes)')
+
 p = argparse.ArgumentParser(description=__doc__)
-p.add_argument('action', choices=['init','status','build','recovery'])
+p.add_argument('action', choices=['init','status','build','bundle','recovery'])
 a = p.parse_args()
 if a.action == 'init': init()
 elif a.action == 'status': status()
 elif a.action == 'build': build()
+elif a.action == 'bundle': bundle()
 else:
     # Local-only window: avoids leaking the recovery phrase into a terminal log.
     import tkinter as tk
